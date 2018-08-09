@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	    <title>Visual Cape Evaluations</title>
+	    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+	    <link href="{{ url_for('static', filename='style.css') }}">
+	</head>
+	<body>
+		<div class="container">
+
+	      <form class="form-signin">
+	        <h2 class="form-signin-heading">Search Professor and Class</h2>
+	        <label class="sr-only">Professor</label>
+	        <input class="form-control" placeholder="Last Name, First Name" required autofocus>
+	        <label for="inputPassword" class="sr-only">Class</label>
+	        <input class="form-control" placeholder="Class Code or Full Class Name" required>
+	        <button class="btn btn-lg btn-primary btn-block" type="submit">Search</button>
+	      </form>
+
+    	</div> <!-- /container -->
+	</body>
+</html>
