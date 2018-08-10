@@ -2,11 +2,11 @@ body {
   margin-top: 100px;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #0984e3;
+  background-color: #f39c12;
 }
 
 .form-signin {
-  max-width: 330px;
+  max-width: 420px;
   padding: 15px;
   margin: 0 auto;
 }
