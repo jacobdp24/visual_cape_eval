@@ -121,11 +121,176 @@ class database:
 		return professors
 
 
-	#create query methods
+	# the following query methods will be used to clean data, more query methods will
+	# be needed to obtain the results for a specific class
 
+	'''
+	query all data associated with a professor
+
+	'''
+	def queryAll(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT * FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+	query evals column from a professor  
+
+	'''
+	def queryEvals(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT evals FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+
+	query course column for a professor
+
+	'''
+
+	def queryCourse(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT course FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+
+	'''
+
+	query term column for a professor 
+
+	'''
+	def queryTerm(self, professor):
+		
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT term FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+	query enroll column for a professor 
+
+	'''
+	def queryEnroll(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT enroll FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
 	
+	query percentage of recommended class for a professor
 
+	'''
+	def queryRecommendedClass(self, professor):
 
+		tupleToQ = (professor,)
 
+		dataList = []
 
+		for data in self.c.execute("SELECT recommend_class FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+
+	query percentage of recommended instructor for a professor 
+
+	'''
+	def queryRecommendInstructor(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT recommend_instructor FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+	query study hours associated with a professor 
+
+	'''
+	def queryStudyHours(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT study_hours FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
 	
+	query Avg expected grade from a professor 
+
+	'''
+	def queryAvgExpected(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT avg_expected FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+	'''
+
+	query avg grade received from a professor 
+
+	'''
+
+	def queryAvgReceived(self, professor):
+
+		tupleToQ = (professor,)
+
+		dataList = []
+
+		for data in self.c.execute("SELECT avg_recieved FROM professors WHERE professor LIKE ?", tupleToQ):
+			print(data)
+			dataList.append(data)
+
+		return dataList
+
+
