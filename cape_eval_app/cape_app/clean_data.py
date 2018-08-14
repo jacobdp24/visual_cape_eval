@@ -1,6 +1,6 @@
 '''
 
-script cleans the data in the database
+script cleans the data in the database and puts it into a new table
 
 '''
 
@@ -8,7 +8,7 @@ import database as db
 
 data = db.database('./data.db')
 
-data.create_proper_labels()
+data.create_proper_labels() 
 
 professors = data.clean_query_prof()
 
@@ -34,6 +34,27 @@ for name in professors:
 
 	aRecs = data.queryAvgReceived(name)
 
+	#name splitting for advanced queries
+
+	last_first_middle = name.split(',')
+
+	last = last_first_middle[0]
+
+	first_middle = last_first_middle[1]
+
+	first_middle = first_middle.split(' ')
+
+	first = first_middle[1]
+
+	middle = ''
+
+	if len(first_middle) > 2:
+
+		middle = first_middle[2]
+
+	fullName = (last, first, middle)
+
+	
 	#this nest works becuase they are all the same size
 	for j in range(len(evals)):
 
@@ -111,8 +132,10 @@ for name in professors:
 
 		tupleI = ()
 
-		tupleI = (name,) + code + codeAndCourses[j] + terms[j] + enroll + evalu + rClass + rInstructor + studyHour + aExps[j] + aRecs[j]
+		tupleI = fullName + code + codeAndCourses[j] + terms[j] + enroll + evalu + rClass + rInstructor + studyHour + aExps[j] + aRecs[j]
 		
 		data.insert_clean(tupleI)
+
+		
 
 data.close()
