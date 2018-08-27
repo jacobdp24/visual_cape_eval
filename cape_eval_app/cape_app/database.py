@@ -1,4 +1,5 @@
 import sqlite3
+import re
 
 class database:
 
@@ -334,6 +335,8 @@ class database:
 	'''
 	this method has the precondition that the user supplied a complete professor 
 	name with the correct class code, this is the best case 
+
+	@return - a list of tuples containing the data corresponding the the class and professor
 	'''
 	def querySpecificProfessor(self, last, first, middle, code):
 
@@ -341,10 +344,126 @@ class database:
 
 		dataList = []
 
+		# TODO: MAKE THESE QUERIES CASE INSENSITIVE
+
 		for data in self.c.execute("SELECT * FROM clean_professors WHERE Last_Name=? AND First_Name=? AND Middle_Initial=? AND course_code=?", tupleToQ):
 
 			dataList.append(data)
 
 		return dataList
+
+
+	'''
+	this method has the precondition that the user supplied a complete professor 
+	name with the correct class code, this is the best case but without the middle name
+
+	@return - a list of tuples containing the data corresponding the the class and professor
+	'''
+	def querySpecificProfessor(self, last, first, code):
+
+		tupleToQ = (last, first, code)
+
+		dataList = []
+
+		# TODO: MAKE THESE QUERIES CASE INSENSITIVE
+
+		for data in self.c.execute("SELECT * FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+
+			dataList.append(data)
+
+		return dataList
+
+
+	'''
+
+	query term column for a professor from cleaned input
+
+	'''
+	def queryTerm(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT term FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+
+	def queryRecI(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT recommend_instructor FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+
+	def queryRecC(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT recommend_class FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+
+
+
+	#TODO finish the query cases for edge case inputs (found professor but not class or vice versa)
+
+	'''
+	the following methods validate if an input exists in the database
+
+	'''
+
+	'''
+	cleans an input name so its just the first and last names
+	'''
+	def cleanInputName(self, professor):
+
+		#TODO edge case of apostrophes of hyphens in names 
+		stringS = re.compile(r'[a-zA-Z]*')
+
+		mo = stringS.findall(professor)
+
+		mo = [x for x in mo if x != '']
+
+		return mo
+
+
+
+
+		
+
+		
+
+
+
 
 
