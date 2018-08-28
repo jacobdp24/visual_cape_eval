@@ -356,6 +356,7 @@ class database:
 	'''
 	this method has the precondition that the user supplied a complete professor 
 	name with the correct class code, this is the best case but without the middle name
+	need to handle the edge case of multiples of the same class taught during one quarter
 
 	@return - a list of tuples containing the data corresponding the the class and professor
 	'''
@@ -432,6 +433,74 @@ class database:
 			dataList.append(tuples[0])
 
 		return dataList
+
+	def queryAvgReceived(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT avg_received FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		gpa = []
+		letterList = []
+
+		for string in dataList:
+
+			firstSplit = string.split(' ')
+			letterList.append(firstSplit[0])
+
+			if len(firstSplit) > 1:
+				secondSplit = firstSplit[1].split('(')
+				thirdSplit = secondSplit[1].split(')')
+				gpa.append(float(thirdSplit[0]))
+
+			else:
+				gpa.append(0)
+		
+		return gpa
+
+	def queryAvgExpected(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT avg_expected FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		gpa = []
+		letterList = []
+
+		for string in dataList:
+
+			firstSplit = string.split(' ')
+			letterList.append(firstSplit[0])
+
+			if len(firstSplit) > 1:
+				secondSplit = firstSplit[1].split('(')
+				thirdSplit = secondSplit[1].split(')')
+				gpa.append(float(thirdSplit[0]))
+
+			else:
+				gpa.append(0)
+		
+		return gpa
 
 	def queryStudyHours(self, last, first, code):
 		
