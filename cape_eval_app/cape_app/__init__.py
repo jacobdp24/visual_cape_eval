@@ -28,14 +28,18 @@ def searchpage():
 
 			if len(profData) > 0:
 
+				first = professor[1]
+				last = professor[0]
 				labels = data.queryTerm(professorC[0], professorC[1], classCode)
 				recommendI = data.queryRecI(professorC[0], professorC[1], classCode)
 				recommendC = data.queryRecC(professorC[0], professorC[1], classCode)
+				studyHours = data.queryStudyHours(professorC[0], professorC[1], classCode)
 
 
-				return render_template("display.html", professor=professor, classCode=classCode, labels=labels, recommendI=recommendI, recommendC=recommendC)
 
-			else:
+				return render_template("display.html", professor=professor, classCode=classCode, first=first, last=last, labels=labels, recommendI=recommendI, recommendC=recommendC, studyHours=studyHours)
+
+			else: #add in fail page
 
 				return render_template("display.html", professor="fail", classCode=classCode)
 
