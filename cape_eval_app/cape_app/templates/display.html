@@ -3,6 +3,7 @@
     <h1>{{ professor }} {{ classCode }}
 	<canvas id="myChart" width="600" height="400"></canvas>
 	<canvas id="myChart2" width="600" height="400"></canvas>
+    <canvas id="myChart3" width="600" height="400"></canvas>
     <script>
 
     //add titles to charts and change top margins 
@@ -14,7 +15,8 @@
     var recommendI = {{ recommendI|tojson }}
     var recommendC = {{ recommendC|tojson }}
     var studyHours = {{ studyHours|tojson }}
-
+    var avgE = {{ avgE|tojson }}
+    var avgR = {{ avgR|tojson }}
 
     var ctx = document.getElementById('myChart').getContext('2d');
 	var chart = new Chart(ctx, {
@@ -72,7 +74,40 @@
     },
     });
 
-    
+    var ctx3 = document.getElementById('myChart3').getContext('2d');
+    var chart = new Chart(ctx3, {
+    // The type of chart we want to create
+    type: 'line',
+    // The data for our dataset
+
+    data: {
+        labels: myLabels,
+        datasets: [{
+            label: "Average GPA expected",
+            //fillColor: "rgb(69,170,242,0.2)",
+            fill: false,
+            backgroundColor: 'rgb(153, 255, 102)',
+            borderColor: 'rgb(153, 255, 102)',
+            bezierCurve : false,
+            data: avgE,
+        },
+
+        {
+            label: "Average GPA received",
+            //fillColor: "rgb(69,170,242,0.2)",
+            fill: false,
+            backgroundColor: 'rgb(102, 204, 255)',
+            borderColor: 'rgb(102, 204, 255)',
+            bezierCurve : false,
+            data: avgR,           
+        },
+
+        ],
+    },
+
+    // Configuration options go here
+    options: {}
+});
 
 	//TODO add other charts containing data 
     </script>
