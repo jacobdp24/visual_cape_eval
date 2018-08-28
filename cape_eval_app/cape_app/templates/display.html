@@ -1,5 +1,77 @@
 {% extends "base.html" %}
 {% block content %}
-	<p>{{professor}}</p>
-	<p>{{classCode}}</p>
+    <h1>{{ professor }} {{ classCode }}
+	<canvas id="myChart" width="600" height="400"></canvas>
+	<canvas id="myChart2" width="600" height="400"></canvas>
+    <script>
+
+    //add titles to charts and change top margins 
+
+    //create json variables from flask
+    var myLabels = {{ labels|tojson }}
+    var professor = {{ professor|tojson }}
+    var classCode = {{ classCode|tojson }}
+    var recommendI = {{ recommendI|tojson }}
+    var recommendC = {{ recommendC|tojson }}
+    var studyHours = {{ studyHours|tojson }}
+
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+	var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+    // The data for our dataset
+
+    data: {
+        labels: myLabels,
+        datasets: [{
+            label: "Recommend Instructor Percentage",
+            //fillColor: "rgb(69,170,242,0.2)",
+            fill: false,
+          	backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgb(255, 99, 132)',
+          	bezierCurve : false,
+            data: recommendI,
+        },
+
+        {
+			label: "Recommend Class Percentage",
+            //fillColor: "rgb(69,170,242,0.2)",
+            fill: false,
+          	backgroundColor: 'rgb(100, 50, 200)',
+            borderColor: 'rgb(100, 50, 200)',
+          	bezierCurve : false,
+            data: recommendC,        	
+        },
+
+        ],
+    },
+
+    // Configuration options go here
+    options: {}
+});
+    var ctx2 = document.getElementById('myChart2').getContext('2d');
+    var chart2 = new Chart(ctx2, {
+
+    type: 'line',
+
+    data: {
+        labels: myLabels,
+        datasets: [{
+            label: "Study Hours Expected",
+            //fillColor: "rgb(69,170,242,0.2)",
+            fill: false,
+            backgroundColor: 'rgb(153, 255, 51)',
+            borderColor: 'rgb(153, 255, 51)',
+            bezierCurve : false,
+            data: studyHours,
+        },
+        ],
+
+        options: {}
+    },
+    });
+
+	//TODO add other charts containing data 
+    </script>
 {% endblock %}
