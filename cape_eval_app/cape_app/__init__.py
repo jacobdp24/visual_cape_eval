@@ -34,10 +34,12 @@ def searchpage():
 				recommendI = data.queryRecI(professorC[0], professorC[1], classCode)
 				recommendC = data.queryRecC(professorC[0], professorC[1], classCode)
 				studyHours = data.queryStudyHours(professorC[0], professorC[1], classCode)
+				avgE = data.queryAvgExpected(professorC[0], professorC[1], classCode)
+				avgR = data.queryAvgReceived(professorC[0], professorC[1], classCode)
 
 
 
-				return render_template("display.html", professor=professor, classCode=classCode, first=first, last=last, labels=labels, recommendI=recommendI, recommendC=recommendC, studyHours=studyHours)
+				return render_template("display.html", professor=professor, classCode=classCode, first=first, last=last, labels=labels, recommendI=recommendI, recommendC=recommendC, studyHours=studyHours, avgR=avgR, avgE=avgE)
 
 			else: #add in fail page
 
