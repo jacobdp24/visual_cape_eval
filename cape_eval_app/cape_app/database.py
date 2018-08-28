@@ -433,6 +433,24 @@ class database:
 
 		return dataList
 
+	def queryStudyHours(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT study_hours FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+	
 
 
 	#TODO finish the query cases for edge case inputs (found professor but not class or vice versa)
