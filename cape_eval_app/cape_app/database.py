@@ -173,6 +173,7 @@ class database:
 
 		return dataList
 
+
 	'''
 	query evals column from a professor  
 
@@ -520,6 +521,44 @@ class database:
 
 		return dataList
 	
+	def queryProfessorNames(self, classCode):
+
+		acceptableCourses = []
+
+		for course in self.c.execute("SELECT course_code FROM clean_professors"):
+			course = course[0]
+			acceptableCourses.append(course)
+
+		if classCode not in acceptableCourses:
+
+			return False
+
+		else:
+			tupleToQ = (classCode,)
+
+			lastNames = []
+			firstNames = []
+			fullNames = []
+
+			for lastName in self.c.execute("SELECT Last_Name FROM clean_professors WHERE course_code LIKE ?", tupleToQ):
+				lastNames.append(lastName)
+
+			for firstName in self.c.execute("SELECT First_Name FROM clean_professors WHERE course_code LIKE ?", tupleToQ):
+				firstNames.append(firstName)
+			
+			for i in range(len(firstNames)):
+				lastName = lastNames[i]
+				lastName = lastName[0]
+				firstName = firstNames[i]
+				firstName = firstName[0]
+
+				combined = lastName + ', ' + firstName
+
+				if combined not in fullNames:
+					fullNames.append(combined)
+
+			return fullNames
+
 
 
 	#TODO finish the query cases for edge case inputs (found professor but not class or vice versa)
@@ -541,7 +580,16 @@ class database:
 
 		mo = [x for x in mo if x != '']
 
+		print(len(mo))
+
 		return mo
+
+if __name__=="__main__":
+	data = database('./data.db')
+	prof = '123'
+	teacherName = data.cleanInputName(prof)
+	print(teacherName)
+	data.close()
 
 
 
