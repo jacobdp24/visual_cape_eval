@@ -46,6 +46,7 @@ def searchpage():
 			classCode = str(classCode)
 			exClass = str(exClass)
 
+
 			classCode = classCode.upper()
 			exClass = exClass.upper()
 
@@ -56,7 +57,14 @@ def searchpage():
 			profData = None
 
 			if len(professorC) > 0:
-				profData = data.querySpecificProfessor(professorC[0], professorC[1], classCode)
+
+				name1 = professorC[0]
+				name2 = professorC[1]
+
+				name1 = name1.lower()
+				name2 = name2.lower()
+
+				profData = data.querySpecificProfessor(name1, name2, classCode)
 			
 
 			if len(profData) > 0:
@@ -71,8 +79,11 @@ def searchpage():
 				studyHours = data.queryStudyHours(professorC[0], professorC[1], classCode)
 				avgE = data.queryAvgExpected(professorC[0], professorC[1], classCode)
 				avgR = data.queryAvgReceived(professorC[0], professorC[1], classCode)
+				enrolls = data.queryEnrolls(professorC[0], professorC[1], classCode)
+				evals = data.queryEvals(professorC[0], professorC[1], classCode)
 
-				return render_template("display.html", professor=combine, classCode=classCode, first=first, last=last, labels=labels, recommendI=recommendI, recommendC=recommendC, studyHours=studyHours, avgR=avgR, avgE=avgE)
+
+				return render_template("display.html", professor=combine, classCode=classCode, first=first, last=last, labels=labels, recommendI=recommendI, recommendC=recommendC, studyHours=studyHours, avgR=avgR, avgE=avgE, enrolls=enrolls, evals=evals)
 				#return render_template('main_list.html', teacherList=first + ' ' + last)
 
 				#add in fail page
@@ -83,7 +94,7 @@ def searchpage():
 				#put in fail page for the main_list here
 				return render_template('main_list.html', teacherList='professor or class not found')
 			elif len(teacherList) > 0:
-				return render_template('main_list.html', teacherList=teacherList)
+				return render_template('main_list.html', teacherList=teacherList, exClass = exClass)
 			
 
 			
