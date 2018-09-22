@@ -15,9 +15,14 @@
 {% block body %}
 
 <body>
+
+  <div class="container" style="margin-top: 0px">
+      <p align='center' style="font-size: 22px">This site was made to visualize cape evaluation data. It shows performance over time, possibly revealing a trend. Search a professor you want to find information about, and see if they are improving.</p>  
+  </div>
+
 	<div class="container">
 
-      <form class="form-signin" method="POST">
+      <form class="form-signin" method="POST" action="/">
         <h2 class="form-signin-heading">Search Professor and Class</h2>
         <label class="sr-only">Professor</label>
         <input class="form-control" placeholder="Last Name, First Name" name="professor" value="{{request.form.professor}}" required autofocus>
@@ -25,6 +30,29 @@
         <input class="form-control" placeholder="Class Code EX: CSE 12" name="classCode" value="{{request.form.classCode}}" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit" name="search">Search</button>
       </form>
+
+</div> <!-- /container -->
+      
+
+  <div class="container" style="margin-top: 50px"> <!-- form for finding a teacher -->
+
+    <p align='center' style="font-size: 22px">Can't find your teacher? Type the class you have in mind here, and you will see a list of teachers with their spelling from the cape evaluation site. If you still can't find what you are looking for it might be because I'm a terrible programmer, you're a bad speller, or both.</p>
+    
+    <form method="POST">
+
+
+      <div class="input-group mb-3">
+        <input type="text" class="form-control form-control-lg" type="text" placeholder="example: BILD 1" name="exClassCode" value={{request.form.exClassCode}}>
+        <div class="input-group-append">
+          <button class="btn btn-lg btn-primary btn-block" type="submit" name="classSearch">Search</button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div class="container">
+      {% block content %}{% endblock %}
+  </div>
 
 </body>
 
