@@ -376,6 +376,42 @@ class database:
 		return dataList
 
 
+	def queryEvals(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT evals FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+
+	def queryEnrolls(self, last, first, code):
+		
+		tupleToQ = (last, first, code)
+
+		tupleList = []
+
+		for data in self.c.execute("SELECT enroll FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+			
+			tupleList.append(data)
+
+		dataList = []
+
+		for tuples in reversed(tupleList):
+
+			dataList.append(tuples[0])
+
+		return dataList
+
 	'''
 
 	query term column for a professor from cleaned input
@@ -586,8 +622,8 @@ class database:
 
 if __name__=="__main__":
 	data = database('./data.db')
-	prof = '123'
-	teacherName = data.cleanInputName(prof)
+	prof = 123
+	teacherName = data.queryProfessorNames(prof)
 	print(teacherName)
 	data.close()
 
