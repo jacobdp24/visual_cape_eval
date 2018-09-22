@@ -1,4 +1,17 @@
 {% extends "main.html" %}
 {% block content %}
 <p>{{ teacherList }}</p>
+
+<table>
+	<tr>
+		<th>Professor</th>
+		<th>Class</th>
+	</tr>
+	{% for teacher in teacherList %}
+	<tr>
+		<td>{{ teacher }}</td>
+		<td>{{ exClass }}</td>
+	</tr>
+	{% endfor %}
+</table>
 {% endblock %}
