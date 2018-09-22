@@ -369,7 +369,8 @@ class database:
 
 		# TODO: MAKE THESE QUERIES CASE INSENSITIVE
 
-		for data in self.c.execute("SELECT * FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+
+		for data in self.c.execute("SELECT * FROM clean_professors WHERE LOWER(Last_Name)=? AND LOWER(First_Name)=? AND course_code=?", tupleToQ):
 
 			dataList.append(data)
 
