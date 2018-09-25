@@ -367,12 +367,14 @@ class database:
 
 		dataList = []
 
-		# TODO: MAKE THESE QUERIES CASE INSENSITIVE
-
-
-		for data in self.c.execute("SELECT * FROM clean_professors WHERE LOWER(Last_Name)=? AND LOWER(First_Name)=? AND course_code=?", tupleToQ):
+		for data in self.c.execute("SELECT * FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
 
 			dataList.append(data)
+
+		if len(dataList) == 0:
+			for data in self.c.execute("SELECT * FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+
+				dataList.append(data)
 
 		return dataList
 
@@ -383,9 +385,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT evals FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+		for data in self.c.execute("SELECT evals FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
 			
 			tupleList.append(data)
+
+		if len(tupleList) == 0:
+			
+			for data in self.c.execute("SELECT evals FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+			
+				tupleList.append(data)
 
 		dataList = []
 
@@ -400,10 +408,17 @@ class database:
 		tupleToQ = (last, first, code)
 
 		tupleList = []
-
-		for data in self.c.execute("SELECT enroll FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+		
+		for data in self.c.execute("SELECT enroll FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
 			
 			tupleList.append(data)
+
+
+		if len(tupleList) == 0:
+
+			for data in self.c.execute("SELECT enroll FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+			
+				tupleList.append(data)
 
 		dataList = []
 
@@ -424,9 +439,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT term FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
+		for data in self.c.execute("SELECT term FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
+
+		if len(tupleList) == 0:
 			
-			tupleList.append(data)
+			for data in self.c.execute("SELECT term FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
 
 		dataList = []
 
@@ -442,9 +463,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT recommend_instructor FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
-			
+		for data in self.c.execute("SELECT recommend_instructor FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
 			tupleList.append(data)
+
+		if len(tupleList) == 0:
+
+			for data in self.c.execute("SELECT recommend_instructor FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
 
 		dataList = []
 
@@ -460,9 +487,16 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT recommend_class FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
-			
+		for data in self.c.execute("SELECT recommend_class FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
 			tupleList.append(data)
+
+
+		if len(tupleList) == 0:
+
+			for data in self.c.execute("SELECT recommend_class FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
 
 		dataList = []
 
@@ -478,9 +512,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT avg_received FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
-			
+		for data in self.c.execute("SELECT avg_received FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
 			tupleList.append(data)
+
+		if tupleList == 0:
+
+			for data in self.c.execute("SELECT avg_received FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
 
 		dataList = []
 
@@ -512,9 +552,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT avg_expected FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
-			
+		for data in self.c.execute("SELECT avg_expected FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+
 			tupleList.append(data)
+
+		if len(tupleList) == 0:
+			
+			for data in self.c.execute("SELECT avg_expected FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+
+				tupleList.append(data)
 
 		dataList = []
 
@@ -546,9 +592,15 @@ class database:
 
 		tupleList = []
 
-		for data in self.c.execute("SELECT study_hours FROM clean_professors WHERE Last_Name=? AND First_Name=? AND course_code=?", tupleToQ):
-			
+		for data in self.c.execute("SELECT study_hours FROM clean_professors WHERE First_Name=? COLLATE NOCASE AND Last_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
 			tupleList.append(data)
+
+		if len(tupleList) == 0:
+
+			for data in self.c.execute("SELECT study_hours FROM clean_professors WHERE Last_Name=? COLLATE NOCASE AND First_Name=? COLLATE NOCASE AND course_code=?", tupleToQ):
+				
+				tupleList.append(data)
 
 		dataList = []
 
@@ -596,7 +648,84 @@ class database:
 
 			return fullNames
 
+	def nameAgnostic(self, first, last, classCode):
 
+		labels = self.queryTerm(first, last, classCode)
+		recommendI = self.queryRecI(first, last, classCode)
+		recommendC = self.queryRecC(first, last, classCode)
+		studyHours = self.queryStudyHours(first, last, classCode)
+		avgE = self.queryAvgExpected(first, last, classCode)
+		avgR = self.queryAvgReceived(first, last, classCode)
+		enrolls = self.queryEnrolls(first, last, classCode)
+		evals = self.queryEvals(first, last, classCode)
+
+		dictToReturn = {'labels': labels,
+						'recommendI': recommendI,
+						'recommendC': recommendC,
+						'studyHours': studyHours,
+						'avgE': avgE,
+						'avgR': avgR,
+						'enrolls': enrolls,
+						'evals': evals
+						}
+
+
+		return dictToReturn
+		
+		
+
+		#first check first and last name (most likely)
+			#set boolean
+		#then check last and first name (second most likely)
+			#set boolean
+		
+		#if first
+			#build dic
+		#elif second
+			#build dic
+		#else
+			#return blank as normal
+
+	def queryProfsAutoComplete(self):
+
+		lastNames = []
+		firstNames = []
+		fullNames = []
+		listReturn = []
+
+		for lastName in self.c.execute("SELECT Last_Name FROM clean_professors"):
+			lastNames.append(lastName)
+
+		for firstName in self.c.execute("SELECT First_Name FROM clean_professors"):
+			firstNames.append(firstName)
+			
+		for i in range(len(firstNames)):
+			lastName = lastNames[i]
+			lastName = lastName[0]
+			firstName = firstNames[i]
+			firstName = firstName[0]
+
+			combined = lastName + ', ' + firstName
+
+			if combined not in fullNames:
+				fullNames.append(combined)
+				name = {'name': combined}
+				listReturn.append(name)
+
+		return listReturn
+
+	def queryClassAutoComplete(self):
+
+		courseCodes = []
+		listReturn = []
+
+		for code in self.c.execute("SELECT course_code FROM clean_professors"):
+			if code[0] not in courseCodes:
+				courseCodes.append(code[0])
+				codeDict = {'code': code[0]}
+				listReturn.append(codeDict)
+
+		return listReturn
 
 	#TODO finish the query cases for edge case inputs (found professor but not class or vice versa)
 
@@ -623,9 +752,8 @@ class database:
 
 if __name__=="__main__":
 	data = database('./data.db')
-	prof = 123
-	teacherName = data.queryProfessorNames(prof)
-	print(teacherName)
+	
+	print(data.queryProfsAutoComplete())
 	data.close()
 
 
